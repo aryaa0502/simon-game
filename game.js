@@ -27,10 +27,12 @@ $(".btn").click(function(){ //to detect clicks on buttons from the user during t
 });
 
 function checkAnswer(currentLevel){
-  if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){
-    if(userClickedPattern.length === gamePattern.length){
-      setTimeout(function(){
-        nextSequence();
+  if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){ //to check whether last input from the user is same
+                                                                      //as the last color in game pattern
+    if(userClickedPattern.length === gamePattern.length){ //then we check if the ALL the previous colors have been pressed
+                  //or not...i.e., counting the number of colors pressed..hence checking the length of userClickedPattern
+      setTimeout(function(){ //once the user has entered correct pattern, next color is flashed..hence calling
+        nextSequence();    //nextSequence() after a delay of 1000ms or 1 sec
       }, 1000);
     }
   }else{
@@ -38,13 +40,17 @@ function checkAnswer(currentLevel){
     //In the sounds folder, there is a sound called wrong.mp3, play this sound if the user got one of the answers wrong.
 
     $("body").addClass("game-over");
+    // In the styles.css file, there is a class called "game-over", apply this class to the body
+    // of the website when the user gets one of the answers wrong
+
     $("#level-title").text("Game Over, Press Any Key to Restart");
     // Change the h1 title to say "Game Over, Press Any Key to Restart" if the user got the answer wrong.
 
     setTimeout(function(){
       $("body").removeClass("game-over");
     }, 200);
-    // and then remove it after 200 milliseconds.
+    // and then remove game-over class after 200 milliseconds.
+
     startOver();
     // Call startOver() if the user gets the sequence wrong.
   }
